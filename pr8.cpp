@@ -111,19 +111,19 @@ void calcAvgBelowDiagAndMainDiagArray(const int a[][MAX_DIM], int n, int m)
     std::cout << std::fixed << std::setprecision(3);
     if (countNegBelow > 0)
     {
+        const double result = static_cast<double>(sumNegBelow) / countNegBelow;
         std::cout << "Среднее арифметическое отрицательных элементов ниже главной диагонали ("
                   << countNegBelow << ") = "
-                  << static_cast<double>(sumNegBelow) / countNegBelow
-                  << '\n';
+                  << result << '\n';
     }
     else
         std::cout << "Отрицательных элементов ниже главной диагонали нет, среднее не определено.\n";
 
     // countDiag >= 1 так как n >= 1 и m >= 1
+    const double result = static_cast<double>(sumDiag) / countDiag;
     std::cout << "Среднее арифметическое элементов главной диагонали ("
               << countDiag << ") = "
-              << static_cast<double>(sumDiag) / countDiag
-              << '\n';
+              << result << '\n';
 }
 
 static inline void printMenu()

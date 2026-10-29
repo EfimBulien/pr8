@@ -5,7 +5,7 @@ MAX_DIM = 100, MIN_VALUE = -1000, MAX_VALUE = 1000
 
 
 =====================================================================
-ФУНКЦИЯ validateInput(const char *user_input, int start, int end) — pr8.cpp, строки 12-42
+ФУНКЦИЯ validateInput(const char *user_input, int start, int end) — pr8.cpp, строки 14-44
 =====================================================================
 flowchart TD
     s(["Начало validateInput(user_input, start, end)"])
@@ -41,7 +41,7 @@ flowchart TD
 
 
 =====================================================================
-ФУНКЦИЯ inputSize(int &n, int &m) — pr8.cpp, строки 44-48 (inline)
+ФУНКЦИЯ inputSize(int &n, int &m) — pr8.cpp, строки 46-50 (inline)
 =====================================================================
 flowchart TD
     s(["Начало inputSize(n, m)"])
@@ -54,7 +54,7 @@ flowchart TD
 
 
 =====================================================================
-ФУНКЦИЯ fillManual(int a[][MAX_DIM], int n, int m) — pr8.cpp, строки 50-62
+ФУНКЦИЯ fillManual(int a[][MAX_DIM], int n, int m) — pr8.cpp, строки 52-64
 =====================================================================
 flowchart TD
     s(["Начало fillManual(a, n, m)"])
@@ -81,7 +81,7 @@ flowchart TD
 
 
 =====================================================================
-ФУНКЦИЯ fillRandom(int a[][MAX_DIM], int n, int m) — pr8.cpp, строки 64-72 (static)
+ФУНКЦИЯ fillRandom(int a[][MAX_DIM], int n, int m) — pr8.cpp, строки 66-74 (static)
 =====================================================================
 flowchart TD
     s(["Начало fillRandom(a, n, m)"])
@@ -108,7 +108,7 @@ flowchart TD
 
 
 =====================================================================
-ФУНКЦИЯ printArray(const int a[][MAX_DIM], int n, int m) — pr8.cpp, строки 74-83 (inline)
+ФУНКЦИЯ printArray(const int a[][MAX_DIM], int n, int m) — pr8.cpp, строки 76-85 (inline)
 =====================================================================
 flowchart TD
     s(["Начало printArray(a, n, m)"])
@@ -137,7 +137,7 @@ flowchart TD
 
 
 =====================================================================
-ФУНКЦИЯ calcAvgBelowDiagAndMainDiagArray(const int a[][MAX_DIM], int n, int m) — pr8.cpp, строки 85-124
+ФУНКЦИЯ calcAvgBelowDiagAndMainDiagArray(const int a[][MAX_DIM], int n, int m) — pr8.cpp, строки 87-127
 =====================================================================
 flowchart TD
     s(["Начало calcAvgBelowDiagAndMainDiagArray(a, n, m)"])
@@ -183,7 +183,7 @@ flowchart TD
 
 
 =====================================================================
-ФУНКЦИЯ printMenu() — pr8.cpp, строки 126-135 (static inline)
+ФУНКЦИЯ printMenu() — pr8.cpp, строки 129-138 (static inline)
 =====================================================================
 flowchart TD
     s(["Начало printMenu"])
@@ -194,11 +194,11 @@ flowchart TD
 
 
 =====================================================================
-ФУНКЦИЯ main() — pr8.cpp, строки 137-185
+ФУНКЦИЯ main(int argc, char *argv[]) — pr8.cpp, строки 140-194
 =====================================================================
 flowchart TD
     s(["Начало main"])
-    a1["int a[MAX_DIM][MAX_DIM]<br/>inputSize(n, m)<br/>filled = false"]
+    a1["SetConsoleOutputCP(65001)<br/>SetConsoleCP(65001)<br/>int a[MAX_DIM][MAX_DIM]<br/>inputSize(n, m)<br/>filled = false"]
     l1["Вывод меню (printMenu)"]
     b[/"choice = validateInput(«Ваш выбор», 0, 5)"/]
     c{"choice ?"}
