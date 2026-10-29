@@ -1,17 +1,23 @@
 =====================================================================
-ФУНКЦИЯ readInput(const char *prompt, int lo, int hi) — main.cpp, строки 13-44
+pr8.cpp — схемы алгоритмов функций
+MAX_DIM = 100, MIN_VALUE = -1000, MAX_VALUE = 1000
+=====================================================================
+
+
+=====================================================================
+ФУНКЦИЯ validateInput(const char *user_input, int start, int end) — pr8.cpp, строки 12-42
 =====================================================================
 flowchart TD
-    s(["Начало readInput(prompt, lo, hi)"])
-    a1["Вывод prompt и диапазона [lo .. hi]"]
+    s(["Начало validateInput(user_input, start, end)"])
+    a1["Вывод user_input и диапазона «число от start до end:»"]
     b[/"Ввод value"/]
-    c1{"Ввод успешен ?"}
-    a2["Вывод: число вне допустимого диапазона"]
-    c2{"value ≥ lo и value ≤ hi ?"}
+    c1{"cin >> value<br/>успешен ?"}
+    a2["Вывод: ошибка — число вне<br/>допустимого диапазона"]
+    c2{"value ≥ start и value ≤ end ?"}
     c3{"cin.eof() ?"}
     a3["Вывод: ввод завершён, выход из программы"]
     r0["exit(0)"]
-    a4["Вывод: нужно ввести целое число<br/>cin.clear()"]
+    a4["Вывод: ошибка — нужно<br/>ввести целое число<br/>cin.clear()"]
     a5["cin.ignore(...)<br/>пропуск остатка строки"]
     a6["cin.ignore(...)<br/>пропуск остатка строки"]
     r1["return value"]
@@ -35,12 +41,12 @@ flowchart TD
 
 
 =====================================================================
-ФУНКЦИЯ readSize(int &n, int &m) — main.cpp, строки 46-50
+ФУНКЦИЯ inputSize(int &n, int &m) — pr8.cpp, строки 44-48 (inline)
 =====================================================================
 flowchart TD
-    s(["Начало readSize(n, m)"])
-    a1["n = readInput(количество строк, 1, MAX_N)"]
-    a2["m = readInput(количество столбцов, 1, MAX_M)"]
+    s(["Начало inputSize(n, m)"])
+    a1["n = validateInput(«Введите количество строк n», 1, MAX_DIM)"]
+    a2["m = validateInput(«Введите количество столбцов m», 1, MAX_DIM)"]
     e(["Конец"])
     s --> a1
     a1 --> a2
@@ -48,16 +54,16 @@ flowchart TD
 
 
 =====================================================================
-ФУНКЦИЯ fillManual(int a[][MAX_M], int n, int m) — main.cpp, строки 52-65
+ФУНКЦИЯ fillManual(int a[][MAX_DIM], int n, int m) — pr8.cpp, строки 50-62
 =====================================================================
 flowchart TD
     s(["Начало fillManual(a, n, m)"])
-    a1["Вывод: ввод элементов n × m<br/>диапазон от MIN_VALUE до MAX_VALUE"]
+    a1["Вывод: «Введите элементы массива n x m»"]
     i1["i = 0"]
     c1{"i < n ?"}
     i2["j = 0"]
     c2{"j < m ?"}
-    a2["Вывод: Элемент [i+1][j+1]<br/>a[i][j] = readInput(...)"]
+    a2["Вывод: «Элемент a» и номера i+1, j+1<br/>a[i][j] = validateInput(пустой prompt, MIN_VALUE, MAX_VALUE)"]
     i3["j = j + 1"]
     i4["i = i + 1"]
     e(["Конец"])
@@ -75,11 +81,11 @@ flowchart TD
 
 
 =====================================================================
-ФУНКЦИЯ fillRandom(int a[][MAX_M], int n, int m) — main.cpp, строки 67-79
+ФУНКЦИЯ fillRandom(int a[][MAX_DIM], int n, int m) — pr8.cpp, строки 64-72 (static)
 =====================================================================
 flowchart TD
     s(["Начало fillRandom(a, n, m)"])
-    a1["Инициализация mt19937<br/>dist(MIN_VALUE, MAX_VALUE)"]
+    a1["static std::mt19937 gen<br/>(начальное значение — std::random_device)<br/>dist — uniform_int_distribution(MIN_VALUE, MAX_VALUE)"]
     i1["i = 0"]
     c1{"i < n ?"}
     i2["j = 0"]
@@ -102,11 +108,11 @@ flowchart TD
 
 
 =====================================================================
-ФУНКЦИЯ printArray(const int a[][MAX_M], int n, int m) — main.cpp, строки 81-93
+ФУНКЦИЯ printArray(const int a[][MAX_DIM], int n, int m) — pr8.cpp, строки 74-83 (inline)
 =====================================================================
 flowchart TD
     s(["Начало printArray(a, n, m)"])
-    a1["Вывод: Массив n × m"]
+    a1["Вывод: «Массив n x m:»"]
     i1["i = 0"]
     c1{"i < n ?"}
     i2["j = 0"]
@@ -131,11 +137,11 @@ flowchart TD
 
 
 =====================================================================
-ФУНКЦИЯ calcAvgBelowDiagAndMainDiagArray(...) — main.cpp, строки 95-137
+ФУНКЦИЯ calcAvgBelowDiagAndMainDiagArray(const int a[][MAX_DIM], int n, int m) — pr8.cpp, строки 85-124
 =====================================================================
 flowchart TD
     s(["Начало calcAvgBelowDiagAndMainDiagArray(a, n, m)"])
-    a1["sumNegBelow = 0, countNegBelow = 0<br/>sumDiag = 0, countDiag = 0"]
+    a1["sumNegBelow = 0 (long long), countNegBelow = 0 (int)<br/>sumDiag = 0 (long long), countDiag = 0 (unsigned int)"]
     i1["i = 0"]
     c1{"i < n ?"}
     i2["j = 0"]
@@ -146,11 +152,11 @@ flowchart TD
     a3["sumNegBelow = sumNegBelow + a[i][j]<br/>countNegBelow = countNegBelow + 1"]
     i3["j = j + 1"]
     i4["i = i + 1"]
-    a4["Вывод с fixed и setprecision(3)"]
+    a4["std::cout << fixed << setprecision(3)"]
     c5{"countNegBelow > 0 ?"}
-    a5["Вывод: среднее отрицательных<br/>элементов ниже главной диагонали<br/>sumNegBelow / countNegBelow"]
-    a6["Вывод: отрицательных элементов нет,<br/>среднее не определено"]
-    a7["Вывод: среднее элементов<br/>главной диагонали<br/>sumDiag / countDiag"]
+    a5["Вывод: среднее отрицательных элементов<br/>ниже главной диагонали (countNegBelow)<br/>sumNegBelow / countNegBelow"]
+    a6["Вывод: отрицательных элементов ниже<br/>главной диагонали нет, среднее не определено"]
+    a7["Вывод: среднее элементов главной<br/>диагонали (countDiag)<br/>sumDiag / countDiag"]
     e(["Конец"])
     s --> a1
     a1 --> i1
@@ -177,28 +183,28 @@ flowchart TD
 
 
 =====================================================================
-ФУНКЦИЯ printMenu() — main.cpp, строки 139-148
+ФУНКЦИЯ printMenu() — pr8.cpp, строки 126-135 (static inline)
 =====================================================================
 flowchart TD
     s(["Начало printMenu"])
-    a1["Вывод меню:<br/>1. Задать размеры массива заново<br/>2. Заполнить массив вручную<br/>3. Заполнить массив случайными числами<br/>4. Вывести массив<br/>5. Выполнить задание (вариант 4)<br/>0. Выход"]
+    a1["Вывод меню:<br/>Действия с массивом<br/>1. Задать размеры массива заново<br/>2. Заполнить массив вручную<br/>3. Заполнить массив случайными числами<br/>4. Вывести массив<br/>5. Выполнить задание<br/>0. Выход"]
     e(["Конец"])
     s --> a1
     a1 --> e
 
 
 =====================================================================
-ФУНКЦИЯ main() — main.cpp, строки 150-207
+ФУНКЦИЯ main() — pr8.cpp, строки 137-185
 =====================================================================
 flowchart TD
     s(["Начало main"])
-    a1["a[MAX_N][MAX_M]<br/>readSize(n, m)<br/>filled = false"]
+    a1["int a[MAX_DIM][MAX_DIM]<br/>inputSize(n, m)<br/>filled = false"]
     l1["Вывод меню (printMenu)"]
-    b[/"Ввод choice"/]
+    b[/"choice = validateInput(«Ваш выбор», 0, 5)"/]
     c{"choice ?"}
-    a2["readSize(n, m)<br/>filled = false<br/>Вывод: размеры изменены"]
+    a2["inputSize(n, m)<br/>filled = false<br/>Вывод: размеры изменены, массив нужно заполнить заново"]
     a3["fillManual(a, n, m)<br/>filled = true"]
-    a4["fillRandom(a, n, m)<br/>filled = true<br/>Вывод: массив заполнен"]
+    a4["fillRandom(a, n, m)<br/>filled = true<br/>Вывод: массив заполнен случайными числами"]
     c2{"filled ?"}
     a5["Вывод: массив ещё не заполнен"]
     a6["printArray(a, n, m)"]
@@ -206,7 +212,7 @@ flowchart TD
     a7["printArray(a, n, m)<br/>calcAvgBelowDiagAndMainDiagArray(a, n, m)"]
     a8["Вывод: завершение работы"]
     r["return 0"]
-    a9["Вывод: неверный пункт меню"]
+    a9["Вывод: неверный пункт меню<br/>(недостижимо: validateInput ограничивает 0..5)"]
     e(["Конец main"])
     s --> a1
     a1 --> l1

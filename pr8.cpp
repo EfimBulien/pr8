@@ -9,7 +9,7 @@ const unsigned short MAX_DIM = 100;
 const signed int MIN_VALUE = -1000;
 const unsigned int MAX_VALUE = 1000;
 
-int readInput(const char *user_input, int start, int end)
+int validateInput(const char *user_input, int start, int end)
 {
     int value;
     while (true)
@@ -43,8 +43,8 @@ int readInput(const char *user_input, int start, int end)
 
 inline void inputSize(int &n, int &m)
 {
-    n = readInput("Введите количество строк n", 1, MAX_DIM);
-    m = readInput("Введите количество столбцов m", 1, MAX_DIM);
+    n = validateInput("Введите количество строк n", 1, MAX_DIM);
+    m = validateInput("Введите количество столбцов m", 1, MAX_DIM);
 }
 
 void fillManual(int a[][MAX_DIM], int n, int m)
@@ -56,7 +56,7 @@ void fillManual(int a[][MAX_DIM], int n, int m)
         for (int j = 0; j < m; ++j)
         {
             std::cout << "Элемент a" << i + 1 << j + 1;
-            a[i][j] = readInput("", MIN_VALUE, MAX_VALUE);
+            a[i][j] = validateInput("", MIN_VALUE, MAX_VALUE);
         }
     }
 }
@@ -145,8 +145,7 @@ int main()
     while (true)
     {
         printMenu();
-
-        const int choice = readInput("Ваш выбор", 0, 5);
+        const int choice = validateInput("Ваш выбор", 0, 5);
 
         switch (choice)
         {
@@ -165,20 +164,11 @@ int main()
             std::cout << "Массив заполнен случайными числами.\n";
             break;
         case 4:
-            if (!filled)
-            {
-                std::cout << "Массив ещё не заполнен.\n";
-            }
-            else
-            {
-                printArray(a, n, m);
-            }
+            if (!filled) std::cout << "Массив ещё не заполнен.\n"; 
+            else printArray(a, n, m);
             break;
         case 5:
-            if (!filled)
-            {
-                std::cout << "Массив ещё не заполнен.\n";
-            }
+            if (!filled) std::cout << "Массив ещё не заполнен.\n";
             else
             {
                 printArray(a, n, m);
