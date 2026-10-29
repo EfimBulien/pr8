@@ -1,4 +1,6 @@
 ﻿#include <cstdlib>
+#include <windows.h>
+#include <clocale>
 #include <ctime>
 #include <iomanip>
 #include <iostream>
@@ -20,7 +22,7 @@ int validateInput(const char *user_input, int start, int end)
         {
             if (value >= start && value <= end)
             {
-                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                std::cin.ignore((std::numeric_limits<std::streamsize>::max)(), '\n');
                 return value;
             }
             std::cout << "Ошибка: число вне допустимого диапазона.\n";
@@ -37,7 +39,7 @@ int validateInput(const char *user_input, int start, int end)
             std::cin.clear();
         }
 
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cin.ignore((std::numeric_limits<std::streamsize>::max)(), '\n');
     }
 }
 
@@ -76,7 +78,7 @@ inline void printArray(const int a[][MAX_DIM], int n, int m)
     std::cout << "Массив " << n << "x" << m << ":\n";
     for (int i = 0; i < n; ++i)
     {
-        for (int j = 0; j < m; ++j) 
+        for (int j = 0; j < m; ++j)
             std::cout << std::setw(7) << a[i][j];
         std::cout << '\n';
     }
@@ -111,11 +113,12 @@ void calcAvgBelowDiagAndMainDiagArray(const int a[][MAX_DIM], int n, int m)
     {
         std::cout << "Среднее арифметическое отрицательных элементов ниже главной диагонали ("
                   << countNegBelow << ") = "
-                  << static_cast<double>(sumNegBelow) / countNegBelow 
+                  << static_cast<double>(sumNegBelow) / countNegBelow
                   << '\n';
     }
-    else std::cout << "Отрицательных элементов ниже главной диагонали нет, среднее не определено.\n";
-    
+    else
+        std::cout << "Отрицательных элементов ниже главной диагонали нет, среднее не определено.\n";
+
     // countDiag >= 1 так как n >= 1 и m >= 1
     std::cout << "Среднее арифметическое элементов главной диагонали ("
               << countDiag << ") = "
@@ -134,11 +137,14 @@ static inline void printMenu()
               << "0. Выход\n";
 }
 
-int main()
+int main(int argc, char *argv[])
 {
+    SetConsoleOutputCP(65001);
+    SetConsoleCP(65001);
+
     int n, m;
     int a[MAX_DIM][MAX_DIM];
-    
+
     inputSize(n, m);
 
     bool filled = false;
@@ -164,11 +170,14 @@ int main()
             std::cout << "Массив заполнен случайными числами.\n";
             break;
         case 4:
-            if (!filled) std::cout << "Массив ещё не заполнен.\n"; 
-            else printArray(a, n, m);
+            if (!filled)
+                std::cout << "Массив ещё не заполнен.\n";
+            else
+                printArray(a, n, m);
             break;
         case 5:
-            if (!filled) std::cout << "Массив ещё не заполнен.\n";
+            if (!filled)
+                std::cout << "Массив ещё не заполнен.\n";
             else
             {
                 printArray(a, n, m);
